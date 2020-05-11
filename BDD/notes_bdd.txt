@@ -1,0 +1,3 @@
+Mettre dans utilisateurs à la place (Rajouter une table responsable (avec nom, numero, mail, ect) et mettre une foreign key dans école ?)
+Rajouter le type d'études pour chaque école
+Rajouter le pourcentage hommes/femmes --> éthique ?
