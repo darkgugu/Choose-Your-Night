@@ -8,10 +8,22 @@
     <head>
         <title>CYN Connection</title>
         <style>
-            body {
+            body{
                 color:black;
                 background-color:white;
-                background-image:url("background.png");
+                background-image:url("../Images/background2.png");
+                background-repeat: round;
+            }
+            .center{
+                text-align: center;
+                margin-top: 50vh;
+                transform: translateY(-50%);
+            }
+            input{
+                border: 1px solid grey;
+                border-radius: 10px;
+                padding: 12px 20px;
+                margin: 8px 0;
             }
         </style>
     </head>
@@ -42,11 +54,14 @@
                 }    
             ?>
 
-            <form action="" method="get">
+            <div class="center">
+                <form action="" method="get">
 
-                Identifiant : <input type="text" name="pseudo"><br>
-                Password : <input type="password" name="mdp"><br>
-                <input type="submit" name="con" value="Se connecter">
-            </form>
+                    <input type="text" name="pseudo" placeholder="   Identifiant"><br>
+                    <input type="password" name="mdp" placeholder="   Mot de passe"><br>
+                    <input type="submit" name="con" value="Se connecter"><br>
+                    <input type="submit" name="cre" value="Creer un compte">
+                </form>
+            </div>
         </body>
 </html>
