@@ -60,7 +60,7 @@
                     <input type="text" name="pseudo" placeholder="   Identifiant"><br>
                     <input type="password" name="mdp" placeholder="   Mot de passe"><br>
                     <input type="submit" name="con" value="Se connecter"><br>
-                    <input type="submit" name="cre" value="Creer un compte">
+                    <a href="account.php"><input type="button" name="cre" value="Creer un compte"></a>
                 </form>
             </div>
         </body>
