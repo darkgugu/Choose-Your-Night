@@ -17,7 +17,7 @@ input{
     margin: 8px 0;
 }
 .tile{
-    border: 2px solid grey;
+    border: 2px solid black;
     border-radius: 10px;
     padding: 12px 20px;
     margin: 20px 10px;
@@ -28,6 +28,8 @@ input{
 .center_tile{
     text-align: center;
 }
+
+
 /* The sidebar menu */
 .sidebar {
     height: 100%; /* 100% Full-height */
@@ -36,7 +38,7 @@ input{
     z-index: 1; /* Stay on top */
     top: 0;
     left: 0;
-    background-color: #111; /* Black*/
+    background-color: grey; /* Black*/
     overflow-x: hidden; /* Disable horizontal scroll */
     padding-top: 60px; /* Place content 60px from the top */
     transition: 0.5s; /* 0.5 second transition effect to slide in the sidebar */
@@ -47,7 +49,7 @@ input{
     padding: 8px 8px 8px 32px;
     text-decoration: none;
     font-size: 25px;
-    color: #818181;
+    color: black;
     display: block;
     transition: 0.3s;
   }
@@ -70,10 +72,13 @@ input{
   .openbtn {
     font-size: 20px;
     cursor: pointer;
-    background-color: #111;
-    color: white;
+    background-color: grey;
+    color: black;
     padding: 10px 15px;
     border: none;
+    position: fixed;
+    left: 0;
+    top: 0;
   }
   
   .openbtn:hover {
