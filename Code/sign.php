@@ -29,7 +29,6 @@
     </head>
         <body>
         
-
             <?php
             
                 $bdd = new PDO('mysql:host=localhost;dbname=AddBook;charset=utf8', 'root', '');
@@ -55,6 +54,9 @@
             ?>
 
             <div class="center">
+
+            <h1>Choose Your Night</h1>
+
                 <form action="" method="get">
 
                     <input type="text" name="pseudo" placeholder="   Identifiant"><br>
