@@ -41,7 +41,9 @@
                 <button class="openbtn" onclick="openNav()">&#9776;</button>
 
                 <div style="display: inline-block;" class="tile"> 
-                    <h2><a href="display_tile.php"><?php echo $soirees[$count][1];?></a></h2><br>
+                    <form action="display_tile.php" method="get">
+                        <input class="name_button" type="submit" name="<?php echo $soirees[$count][0];?>" value="<?php echo $soirees[$count][1];?>">
+                    </form>
                     Lizard Lounge<br>
                     18 Mai 2020<br>
                     23h - 06h<br>
@@ -58,6 +60,7 @@
                 <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
                 <a href="#">Nos écoles partenaires</a>
                 <a href="#">Nos associations partenaires</a>
+                <a href="#">Devenir partenaire</a>
                 <a href="#">Nous contacter</a>
                 <a href="#">A propos</a>
             </div>

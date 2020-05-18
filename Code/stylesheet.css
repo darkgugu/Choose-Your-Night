@@ -28,7 +28,11 @@ input{
 .center_tile{
     text-align: center;
 }
-
+.name_button{
+	background:none;
+	border-width:0px;
+	font-size: x-large;
+}
 
 /* The sidebar menu */
 .sidebar {
