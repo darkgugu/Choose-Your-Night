@@ -7,97 +7,82 @@
 <html>
     <head>
         <title>CYN Account</title>
-        <style>
-            body{
-                color:black;
-                background-color:white;
-                background-image:url("../Images/background2.png");
-                background-repeat: round;
-            }
-            .center{
-                text-align: center;
-                margin-top: 50vh;
-                transform: translateY(-50%);
-            }
-            input{
-                border: 1px solid grey;
-                border-radius: 10px;
-                padding: 12px 20px;
-                margin: 8px 0;
-            }
-        </style>
+        <link rel="stylesheet" type="text/css" href="stylesheet.css">
     </head>
 
-    <body class="center">
+    <body class="background">
 
-        <h1>Création de compte</h1>
+        <div class="center">
 
-        <form action="acceuil.php" method="get">
+            <h1>Création de compte</h1>
 
-            <div style="display: block;" id="part1">
+            <form action="acceuil.php" method="get">
 
-                <input type="text" name="pseudo" placeholder="   Identifiant"><br>
-                <input type="password" name="mdp" placeholder="   Mot de passe"><br>
-            </div>
-            <div style="display: none;" id="part2">
+                <div style="display: block;" id="part1">
 
-                <input type="text" name="nom" placeholder="   Nom"><br>
-                <input type="text" name="prénom" placeholder="   Prénom"><br>
-                <input type="email" name="email" placeholder="   Adresse Mail"><br>
-            </div>
-            <div style="display: none;" id="part3">
-                <input type="text" name="rue" placeholder=" Rue et Numéro de rue"><br>
-                <input type="text" name="ville" placeholder=" Ville"><br>
-                <input type="number" name="ville" placeholder=" Code Postal"><br>
-            </div>
-            <div style="display: none;" id="part4">
-                Attention, vous pouvez trouver les questions qui vont suivre trop personelles, <br>
-                elles sont la pour améliorer votre expérience de Choose Your Night, 
-                vous pouvez choisir de les ignorer. <br>
-                Vous pourrez aussi les remplir ultérieurement depuis l'onglet Mon Compte
-            </div>
-            <div style="display: none;" id="part5">
-                Genre : <br>
-                Homme <input type="radio" name="gender" value="Homme"><br>
-                Femme <input type="radio" name="gender" value="Femme"><br>
-                <input type="text" name="other_gender" placeholder=" Autre"><br>
-            </div>
-            <div style="display: none;" id="part6">
-                Vous êtes attirés par : <br>
-                Homme <input type="checkbox" name="attir" value="Homme"><br>
-                Femme <input type="checkbox" name="attir" value="Femme"><br>
-                <input type="text" name="other_attir" placeholder=" Autre"><br>
-            </div>
-            <div style="display: none;" id="part7">
-                Vous preferez : <br>
-                Les soirées chill <input type="radio" name="party_type" value="chill"><br>
-                Les grosses soirées <input type="radio" name="party_type" value="big"><br>
-                Les deux <input type="radio" name="party_type" value="both"><br><br>
-            </div>
-            <div style="display: none;" id="part8">
-                Vous êtes plus : <br>
-                Bar <input type="radio" name="place_type" value="bar"><br>
-                Boite <input type="radio" name="place_type" value="club"><br>
-                Peu importe <input type="radio" name="place_type" value="both"><br>
-            </div>
-            <div style="display: none;" id="part9">
-                A partir de quelle distance une soirée est trop loin pour vous (en km) <br>
-                <input type="number" name="distance"><br>
-            </div>
-            <div style="display: none;" id="part10">
-                A partir de quelle prix une soirée est trop chère pour vous (en €) <br>
-                <input type="number" name="price"><br>
-            </div>
-            <div style="display: none;" id="part11">
-                Merci d'avoir pris le temps de répondre à ces questions, <br>
-                vous pouvez vétifier ou changer vos réponses en cliquant sur "Précédent" <br>
-                ou valider en cliquant sur "Valider"<br>
-            </div>
-            
-            <input id="validate" type="submit" name="Valider" value="Valider" hidden>
-            <input id="next" type="button" name="next" value="Suivant" onclick="suivant()">
-            <input id="prev" type="button" name="next" value="Précédent" onclick="precedent()" hidden>
-        </form>
+                    <input type="text" name="pseudo" placeholder="   Identifiant"><br>
+                    <input type="password" name="mdp" placeholder="   Mot de passe"><br>
+                </div>
+                <div style="display: none;" id="part2">
+
+                    <input type="text" name="nom" placeholder="   Nom"><br>
+                    <input type="text" name="prénom" placeholder="   Prénom"><br>
+                    <input type="email" name="email" placeholder="   Adresse Mail"><br>
+                </div>
+                <div style="display: none;" id="part3">
+                    <input type="text" name="rue" placeholder=" Rue et Numéro de rue"><br>
+                    <input type="text" name="ville" placeholder=" Ville"><br>
+                    <input type="number" name="ville" placeholder=" Code Postal"><br>
+                </div>
+                <div style="display: none;" id="part4">
+                    Attention, vous pouvez trouver les questions qui vont suivre trop personelles, <br>
+                    elles sont la pour améliorer votre expérience de Choose Your Night, 
+                    vous pouvez choisir de les ignorer. <br>
+                    Vous pourrez aussi les remplir ultérieurement depuis l'onglet Mon Compte
+                </div>
+                <div style="display: none;" id="part5">
+                    Genre : <br>
+                    Homme <input type="radio" name="gender" value="Homme"><br>
+                    Femme <input type="radio" name="gender" value="Femme"><br>
+                    <input type="text" name="other_gender" placeholder=" Autre"><br>
+                </div>
+                <div style="display: none;" id="part6">
+                    Vous êtes attirés par : <br>
+                    Homme <input type="checkbox" name="attir" value="Homme"><br>
+                    Femme <input type="checkbox" name="attir" value="Femme"><br>
+                    <input type="text" name="other_attir" placeholder=" Autre"><br>
+                </div>
+                <div style="display: none;" id="part7">
+                    Vous preferez : <br>
+                    Les soirées chill <input type="radio" name="party_type" value="chill"><br>
+                    Les grosses soirées <input type="radio" name="party_type" value="big"><br>
+                    Les deux <input type="radio" name="party_type" value="both"><br><br>
+                </div>
+                <div style="display: none;" id="part8">
+                    Vous êtes plus : <br>
+                    Bar <input type="radio" name="place_type" value="bar"><br>
+                    Boite <input type="radio" name="place_type" value="club"><br>
+                    Peu importe <input type="radio" name="place_type" value="both"><br>
+                </div>
+                <div style="display: none;" id="part9">
+                    A partir de quelle distance une soirée est trop loin pour vous (en km) <br>
+                    <input type="number" name="distance"><br>
+                </div>
+                <div style="display: none;" id="part10">
+                    A partir de quelle prix une soirée est trop chère pour vous (en €) <br>
+                    <input type="number" name="price"><br>
+                </div>
+                <div style="display: none;" id="part11">
+                    Merci d'avoir pris le temps de répondre à ces questions, <br>
+                    vous pouvez vétifier ou changer vos réponses en cliquant sur "Précédent" <br>
+                    ou valider en cliquant sur "Valider"<br>
+                </div>
+                
+                <input id="validate" type="submit" name="Valider" value="Valider" hidden>
+                <input id="next" type="button" name="next" value="Suivant" onclick="suivant()">
+                <input id="prev" type="button" name="next" value="Précédent" onclick="precedent()" hidden>
+            </form>
+        </div>
 
 
         <script>

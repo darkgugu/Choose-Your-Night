@@ -7,27 +7,9 @@
 <html>
     <head>
         <title>CYN Connection</title>
-        <style>
-            body{
-                color:black;
-                background-color:white;
-                background-image:url("../Images/background2.png");
-                background-repeat: round;
-            }
-            .center{
-                text-align: center;
-                margin-top: 50vh;
-                transform: translateY(-50%);
-            }
-            input{
-                border: 1px solid grey;
-                border-radius: 10px;
-                padding: 12px 20px;
-                margin: 8px 0;
-            }
-        </style>
+        <link rel="stylesheet" type="text/css" href="stylesheet.css">
     </head>
-        <body>
+        <body class="background">
         
             <?php
             
