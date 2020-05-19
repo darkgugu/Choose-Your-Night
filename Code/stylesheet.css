@@ -33,7 +33,11 @@ input{
 	border-width:0px;
 	font-size: x-large;
 }
-
+.link_button{
+	background:none;
+  border-width:0px;
+  margin: 0;
+}
 /* The sidebar menu */
 .sidebar {
     height: 100%; /* 100% Full-height */

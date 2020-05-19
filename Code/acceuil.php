@@ -42,7 +42,7 @@
 
                 <div style="display: inline-block;" class="tile"> 
                     <form action="display_tile.php" method="get">
-                        <input class="name_button" type="submit" name="<?php echo $soirees[$count][0];?>" value="<?php echo $soirees[$count][1];?>">
+                        <input class="name_button" type="submit" name="soiree" value="<?php echo $soirees[$count][1];?>">
                     </form>
                     Lizard Lounge<br>
                     18 Mai 2020<br>
