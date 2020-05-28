@@ -34,7 +34,7 @@
 
                     $req = $bdd->query('SELECT COUNT(ID) FROM ecoles WHERE ID IN (SELECT ecoles_ID FROM ecoles_has_associations WHERE ID IN (SELECT ecoles_has_associations_ID FROM organisateurs WHERE soirees_ID = "'.$soiree_ID.'"))');
                     $donnees = $req->fetch();
-                    $orga_count = $donnees[0]; 
+                    $orga_count = $donnees[0];
            ?>
 
 
@@ -44,9 +44,9 @@
                     <form action="display_tile.php" method="get">
                         <input class="name_button" type="submit" name="soiree" value="<?php echo $soirees[$count][1];?>">
                     </form>
-                    Lizard Lounge<br>
-                    18 Mai 2020<br>
-                    23h - 06h<br>
+                    <?php echo $soirees[$count]["Lieu_nom"];?><br>
+                    <?php echo $soirees[$count]["Date"];?><br>
+                    <?php echo $soirees[$count]["Heure_début"];?> - <?php echo $soirees[$count]["Heure_fin"];?><br>
                     Prix : <?php echo $soirees[$count]["Prix"];?>€
                     Nombre de places restantes : <?php echo $soirees[$count]["Places"];?><br>
                     Organisée par : <?php for($i = 0;$i != $orga_count;$i++){echo $orga[$i][0]; if($i != $orga_count-1){echo ", ";}}?>

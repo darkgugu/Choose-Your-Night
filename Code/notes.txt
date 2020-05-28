@@ -1,1 +1,7 @@
 API Uber ?
+
+Ajouter le tri (au moins par prix croisant décroissant)
+
+Liste d'ami ?
+
+Ajouter acceuil dans la sidebar

@@ -40,7 +40,7 @@
             <div class="center_tile" style="float:left;">
 
                 <h1><?php echo $soiree["Nom"];?></h1></br>
-                19 Mai 2020 / 23h-05h</br>
+                <?php echo $soiree["Date"];?> / <?php echo $soiree["Heure_début"];?> - <?php echo $soiree["Heure_fin"];?></br>
                 Organisée par : 
                 
                 <form action="ecole_tile.php" method="get">                
@@ -54,7 +54,7 @@
                             }
                         }
                     ?></br>
-                    Prix : <?php echo $soiree["Prix"];?>€
+                    Prix : <?php echo $soiree["Prix"];?>€ -
                     Nombre de places restantes : <?php echo $soiree["Places"];?><br>
                     Billeterie : <a href="<?php echo $soiree["Billeterie"];?>"><?php echo $soiree["Billeterie"];?></a><br>
                 </form>
