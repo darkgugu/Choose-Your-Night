@@ -1,6 +1,6 @@
 <?php
     session_start();
-    $_SESSION['pseudo'] = [];
+    $_SESSION['nom'] = [];
     $_SESSION['id'] = [];
 ?>
 
@@ -13,13 +13,13 @@
         
             <?php
             
-                $bdd = new PDO('mysql:host=localhost;dbname=AddBook;charset=utf8', 'root', '');
+                $bdd = new PDO('mysql:host=localhost;dbname=cyn;charset=utf8', 'root', '');
 
                 if(isset($_GET['pseudo']) && isset($_GET['mdp']) && isset($_GET['con'])){
 
                     $infos[0] = $_GET['pseudo'];
                     $infos[1] = $_GET['mdp'];
-                    $req = $bdd->query('SELECT * FROM Users WHERE Pseudo = "'.$infos[0].'" AND Password = "'.$infos[1].'"');
+                    $req = $bdd->query('SELECT * FROM utilisateurs WHERE username = "'.$infos[0].'" AND password = "'.$infos[1].'"');
                     $donnees = $req->fetch();
 
                     if($donnees == false){
@@ -27,8 +27,8 @@
                         echo "Mot de passe ou Identifiant invalide";
                     }
                     else{
-
-                        $_SESSION['pseudo'] = $donnees[1];
+    
+                        $_SESSION['nom'] = $donnees['nom'];
                         header('Location: acceuil.php');
                         exit();
                     }

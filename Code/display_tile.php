@@ -43,7 +43,7 @@
                 <?php echo $soiree["Date"];?> / <?php echo $soiree["Heure_début"];?> - <?php echo $soiree["Heure_fin"];?></br>
                 Organisée par : 
                 
-                <form action="ecole_tile.php" method="get">                
+                <form action="ecole_infos.php" method="get">                
                     <?php 
                         for($i = 0;$i != $orga_count;$i++){
                     ?>        
@@ -85,6 +85,11 @@
 
             <div>
                 <p id="map" style="height: 50%;"></p>
+                <div class="center_tile " style="background-color:AntiqueWhite; border-radius: 10px; height: 41%; width: 100%">
+                    
+                    Itinéraire depuis chez vous <br><br>
+                    <span id="display"></span>
+                </div>
             </div>
 
             <div style="float:right">
@@ -92,7 +97,29 @@
                 <img style="height: inherit;" src="../Images/Affiches/affiche_thanksgiving">
             </div>
 
+            <button class="openbtn" onclick="openNav()">&#9776;</button>
+            <div id="mySidebar" class="sidebar">
+                <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                <a href="acceuil.php">Acceuil</a>
+                <a href="#">Nos écoles partenaires</a>
+                <a href="#">Nos associations partenaires</a>
+                <a href="#">Devenir partenaire</a>
+                <a href="#">Nous contacter</a>
+                <a href="#">A propos</a>
+            </div>
 
+            <script>
+
+                function openNav() {
+                    document.getElementById("mySidebar").style.width = "250px";
+                    document.getElementById("main").style.marginLeft = "250px";
+                }
+
+                function closeNav() {
+                    document.getElementById("mySidebar").style.width = "0";
+                    document.getElementById("main").style.marginLeft = "0";
+                }
+            </script>
 
             <script>
 
@@ -101,6 +128,64 @@
                     var place = {lat: 48.857439, lng: 2.356341};
                     var map = new google.maps.Map(document.getElementById('map'), {zoom: 18, center: place});
                     var marker = new google.maps.Marker({position: place, map: map});
+                }
+
+                var display = document.getElementById("display");
+                var array;
+                var headers = new Headers();
+                headers.append('Authorization', 'Basic ' + btoa('947fc96b-fbba-47d7-894d-be9dd87e93e8:'));
+                var url = "https://api.navitia.io/v1/coverage/fr-idf/journeys?from=2.369884%3B48.816784&to=2.356253%3B48.857508";
+                
+                fetch(url, {headers: headers})
+                .then(function(response){
+                            
+                    return response.json();
+                })
+                .then(function(json){
+
+                    array = json;
+                    add();
+                    
+                });
+
+                function add(){
+                
+                    var duration = array.journeys[0].duration / 60;
+                    var nb_sections = array.journeys[0].sections.length;
+                    var transport = [];
+                    var lines = [];
+                    var output = ""
+
+                    for(var count = 0;count != nb_sections;count++){
+
+                        if(array.journeys[0].sections[count].type == "public_transport"){
+
+                            lines[count] = array.journeys[0].sections[count].display_informations;
+                        }
+                        if(array.journeys[0].sections[count].type == "street_network"){
+
+                            transport[count] = "Marche";
+                        }
+                        else{
+
+                            transport[count] = array.journeys[0].sections[count].type
+                        }
+                    }
+
+                    for(var count = 0;count != nb_sections;count++){
+
+                        if(transport[count] == "public_transport"){
+
+                            output = output + lines[count].network + " " + lines[count].code + ", ";
+                        }
+                        else{
+
+                            output = output + transport[count] + ", ";
+                        }
+                    }
+
+                    output = output + Math.round(duration) + "mn"
+                    display.textContent = output;
                 }
             </script>
 

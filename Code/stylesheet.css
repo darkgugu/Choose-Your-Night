@@ -39,6 +39,17 @@ input{
   border-width:0px;
   margin: 0;
 }
+
+.account{
+  cursor: pointer;
+  padding: 10px 15px;
+  border: none;
+  position: fixed;
+  right: 0;
+  top: 0;
+  height: 50;
+  width: 65;
+}
 /* The sidebar menu */
 .sidebar {
     height: 100%; /* 100% Full-height */

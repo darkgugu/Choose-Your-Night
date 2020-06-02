@@ -1,7 +1,5 @@
 <?php
     session_start();
-    $_SESSION['pseudo'] = [];
-    $_SESSION['id'] = [];
 ?>
 
 <html>
@@ -10,7 +8,10 @@
         <link rel="stylesheet" type="text/css" href="stylesheet.css">
     </head>
         <body>
-          <div id="main" class="center_tile">
+            
+        <a href="account_infos.php"><img class="account" src="../Images/Ressources/account.jpg"></img></a>
+
+        <div id="main" class="center_tile">
 
             <?php
             
@@ -37,9 +38,6 @@
                     $orga_count = $donnees[0];
            ?>
 
-
-                <button class="openbtn" onclick="openNav()">&#9776;</button>
-
                 <div style="display: inline-block;" class="tile"> 
                     <form action="display_tile.php" method="get">
                         <input class="name_button" type="submit" name="soiree" value="<?php echo $soirees[$count][1];?>">
@@ -55,24 +53,24 @@
 
             </div>
                 
+            <button class="openbtn" onclick="openNav()">&#9776;</button>
 
             <div id="mySidebar" class="sidebar">
                 <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-                <a href="#">Nos écoles partenaires</a>
-                <a href="#">Nos associations partenaires</a>
+                <a href="acceuil.php">Acceuil</a>
+                <a href="ecole_tile.php">Nos écoles partenaires</a>
+                <a href="asso_tile.php">Nos associations partenaires</a>
                 <a href="#">Devenir partenaire</a>
                 <a href="#">Nous contacter</a>
                 <a href="#">A propos</a>
             </div>
             
-
             <script>
 
                 function openNav() {
                     document.getElementById("mySidebar").style.width = "250px";
                     document.getElementById("main").style.marginLeft = "250px";
                 }
-
 
                 function closeNav() {
                     document.getElementById("mySidebar").style.width = "0";

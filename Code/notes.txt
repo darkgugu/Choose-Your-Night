@@ -4,4 +4,12 @@ Ajouter le tri (au moins par prix croisant décroissant)
 
 Liste d'ami ?
 
-Ajouter acceuil dans la sidebar
+Page compte
+
+Partie admin + form pour orga
+
+Rendre le form account safer
+
+Changer le bouton account pour qu'il soit à la meme place sur toutes les pages ?
+
+Favicon & titles
