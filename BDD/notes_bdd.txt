@@ -5,3 +5,9 @@
 **Avoir le nombre de places restantes dynamiquement
 **Changer Date par Date / Heure de début / Heure de fin
 **Ajouter des liens vers les sites des écoles et des associations
+
+
+**Ajouter latitude et longitude
+**Changer le datetime en varchar
+Mettre raison en user par défault
+Mettre à jour le mcd
