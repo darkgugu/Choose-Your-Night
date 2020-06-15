@@ -1,6 +1,6 @@
 API Uber ?
 
-Ajouter le tri (au moins par prix croisant décroissant)
+Ajouter le tri (au moins par prix croisant décroissant) (tri AJAX ou rechargement de page ??)
 
 Liste d'ami ?
 
@@ -13,3 +13,9 @@ Rendre le form account safer
 Changer le bouton account pour qu'il soit à la meme place sur toutes les pages ?
 
 Favicon & titles
+
+Ajouter la modification des infos sur mon compte
+
+Rajouter STATUT à la table soirées
+
+Places restantes ?? (penser à un système genre places restantes à telle date/heure)
