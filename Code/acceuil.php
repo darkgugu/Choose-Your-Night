@@ -38,44 +38,20 @@
                     $orga_count = $donnees[0];
            ?>
 
-                <div style="display: inline-block;" class="tile"> 
-                    <form action="display_tile.php" method="get">
-                        <input class="name_button" type="submit" name="soiree" value="<?php echo $soirees[$count][1];?>">
-                    </form>
-                    <?php echo $soirees[$count]["Lieu_nom"];?><br>
-                    <?php echo $soirees[$count]["Date"];?><br>
-                    <?php echo $soirees[$count]["Heure_début"];?> - <?php echo $soirees[$count]["Heure_fin"];?><br>
-                    Prix : <?php echo $soirees[$count]["Prix"];?>€
-                    Nombre de places restantes : <?php echo $soirees[$count]["Places"];?><br>
-                    Organisée par : <?php for($i = 0;$i != $orga_count;$i++){echo $orga[$i][0]; if($i != $orga_count-1){echo ", ";}}?>
-                </div>
-                <?php }?>
-
+            <div style="display: inline-block;" class="tile"> 
+                <form action="display_tile.php" method="get">
+                    <input class="name_button" type="submit" name="soiree" value="<?php echo $soirees[$count][1];?>">
+                </form>
+                <?php echo $soirees[$count]["Lieu_nom"];?><br>
+                <?php echo $soirees[$count]["Date"];?><br>
+                <?php echo $soirees[$count]["Heure_début"];?> - <?php echo $soirees[$count]["Heure_fin"];?><br>
+                Prix : <?php echo $soirees[$count]["Prix"];?>€
+                Nombre de places restantes : <?php echo $soirees[$count]["Places"];?><br> Organisée par : <?php for($i = 0;$i != $orga_count;$i++){echo $orga[$i][0]; if($i != $orga_count-1){echo ", ";}}?>    
             </div>
                 
-            <button class="openbtn" onclick="openNav()">&#9776;</button>
+            <?php }?>
 
-            <div id="mySidebar" class="sidebar">
-                <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-                <a href="acceuil.php">Acceuil</a>
-                <a href="ecole_tile.php">Nos écoles partenaires</a>
-                <a href="asso_tile.php">Nos associations partenaires</a>
-                <a href="#">Devenir partenaire</a>
-                <a href="#">Nous contacter</a>
-                <a href="#">A propos</a>
-            </div>
-            
-            <script>
+            <?php include 'sidebar.php';?>
 
-                function openNav() {
-                    document.getElementById("mySidebar").style.width = "250px";
-                    document.getElementById("main").style.marginLeft = "250px";
-                }
-
-                function closeNav() {
-                    document.getElementById("mySidebar").style.width = "0";
-                    document.getElementById("main").style.marginLeft = "0";
-                }
-            </script>
         </body>
 </html>

@@ -97,29 +97,7 @@
                 <img style="height: inherit;" src="../Images/Affiches/affiche_thanksgiving">
             </div>
 
-            <button class="openbtn" onclick="openNav()">&#9776;</button>
-            <div id="mySidebar" class="sidebar">
-                <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-                <a href="acceuil.php">Acceuil</a>
-                <a href="#">Nos écoles partenaires</a>
-                <a href="#">Nos associations partenaires</a>
-                <a href="#">Devenir partenaire</a>
-                <a href="#">Nous contacter</a>
-                <a href="#">A propos</a>
-            </div>
-
-            <script>
-
-                function openNav() {
-                    document.getElementById("mySidebar").style.width = "250px";
-                    document.getElementById("main").style.marginLeft = "250px";
-                }
-
-                function closeNav() {
-                    document.getElementById("mySidebar").style.width = "0";
-                    document.getElementById("main").style.marginLeft = "0";
-                }
-            </script>
+            <?php include 'sidebar.php';?>
 
             <script>
 
