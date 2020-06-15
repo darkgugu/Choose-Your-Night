@@ -37,7 +37,12 @@
 
                 $req = $bdd->query('INSERT INTO utilisateurs (username, email, password, raison, nom, adresse, latitude, longitude, pref) VALUES ("'.$infos[0].'","'.$infos[4].'", "'.$infos[1].'", "user", "'.$infos[15].'", "'.$infos[16].'", "'.$infos[17].'", "'.$infos[18].'" ,"'.$infos[14].'")');
 
+                $req = $bdd->query('SELECT ID FROM utilisateurs WHERE username = "'.$infos[0].'"');
+                $donnees = $req->fetch();
+
                 $_SESSION['nom'] = $infos[2];
+                $_SESSION['id'] = $donnees[0];
+                
                 header('Location: acceuil.php');
                 exit();
             }

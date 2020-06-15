@@ -2,6 +2,7 @@
     session_start();
     $_SESSION['nom'] = [];
     $_SESSION['id'] = [];
+    $_SESSION['perm'] = [];
 ?>
 
 <html>
@@ -28,7 +29,10 @@
                     }
                     else{
     
+                        var_dump($donnees);
                         $_SESSION['nom'] = $donnees['nom'];
+                        $_SESSION['id'] = $donnees['ID'];
+                        $_SESSION['perm'] = $donnees['raison'];
                         header('Location: acceuil.php');
                         exit();
                     }
