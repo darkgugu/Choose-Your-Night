@@ -16,6 +16,8 @@ Favicon & titles
 
 Ajouter la modification des infos sur mon compte
 
-Rajouter STATUT à la table soirées
-
 Places restantes ?? (penser à un système genre places restantes à telle date/heure)
+
+SECURE LE BACKEND (url)
+
+rester sur le même onglet quand on change de page (backend)
