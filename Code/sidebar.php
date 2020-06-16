@@ -4,6 +4,7 @@
 
 <div id="mySidebar" class="sidebar">
             <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+            <?php if($_SESSION['perm'] == 'admin'){?><a style="color: red;" href="backend.php">BACKEND</a><?php }?>
             <a href="acceuil.php">Acceuil</a>
             <a href="ecole_tile.php">Nos écoles partenaires</a>
             <a href="asso_tile.php">Nos associations partenaires</a>
