@@ -46,12 +46,12 @@
 			min-height:3em;
 		}
 		ul.domtabs a:hover{
-			background:#696;
+			background:#C0AD98;
 		}
 		div.domtab div{
 			clear:both;
 			width:auto;
-			background:#696;
+			background:#C0AD98;
 			color:#fff;
 			padding:1em 3em;
 		}
@@ -59,7 +59,7 @@
 		ul.domtabs li.active a:visited,
 		ul.domtabs li.active a:active,
 		ul.domtabs li.active a:hover{
-			background:#696;
+			background:#C0AD98;
 			color:#fff;
 		}
 		#domtabprintview{
