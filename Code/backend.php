@@ -5,27 +5,43 @@
     <head>
         <title></title>
         <link rel="stylesheet" type="text/css" href="domtab.css">
+        <link rel="stylesheet" type="text/css" href="stylesheet.css">
         <script type="text/javascript" src="domtab.js"></script>
+        <style>
+            input{
+                border: 0;
+                border-radius: 0;
+                padding: 0;
+                margin: 0;
+                opacity: 1;
+            }
+        </style>
     </head>
         <body onload="notifs('assos'), notifs('ecoles'), notifs('soirees'), notifs('users')">
             <?php
 
                 $bdd = new PDO('mysql:host=localhost;dbname=cyn;charset=utf8', 'root', '');
 
-                if(isset($_GET['ID'])){
+                if(isset($_GET['ID_asso'])){
 
                     if($_GET['Ans'] == "✅"){
-
-                        $req = $bdd->query('UPDATE associations SET `statut` = "approved" WHERE `ID` = "'.$_GET['ID'].'"');
+                        $req = $bdd->query('UPDATE associations SET `statut` = "approved" WHERE `ID` = "'.$_GET['ID_asso'].'"');
+                        $req = $bdd->query('UPDATE utilisateurs SET `raison` = "partner" WHERE `partnership` = "'.$_GET['ID_asso'].'"');
                     }
-                    else if($_GET['Ans'] == "❌"){
+                    else if($_GET['Ans'] == "❌"){$req = $bdd->query('UPDATE associations SET `statut` = "denied" WHERE `ID` = "'.$_GET['ID_asso'].'"');}
+                    else if($_GET['Ans'] == "✘"){$req = $bdd->query('UPDATE associations SET `statut` = "deleted" WHERE `ID` = "'.$_GET['ID_asso'].'"');}
+                }
+                if(isset($_GET['ID_ecoles'])){
 
-                        $req = $bdd->query('UPDATE associations SET `statut` = "denied" WHERE `ID` = "'.$_GET['ID'].'"');
-                    }
-                    else if($_GET['Ans'] == "✘"){
+                    if($_GET['Ans'] == "✅"){$req = $bdd->query('UPDATE ecoles SET `statut` = "approved" WHERE `ID` = "'.$_GET['ID_ecoles'].'"');}
+                    else if($_GET['Ans'] == "❌"){$req = $bdd->query('UPDATE ecoles SET `statut` = "denied" WHERE `ID` = "'.$_GET['ID_ecoles'].'"');}
+                    else if($_GET['Ans'] == "✘"){$req = $bdd->query('UPDATE ecoles SET `statut` = "deleted" WHERE `ID` = "'.$_GET['ID_ecoles'].'"');}
+                }
+                if(isset($_GET['ID_soirees'])){
 
-                        $req = $bdd->query('UPDATE associations SET `statut` = "deleted" WHERE `ID` = "'.$_GET['ID'].'"');
-                    }
+                    if($_GET['Ans'] == "✅"){$req = $bdd->query('UPDATE soirees SET `statut` = "approved" WHERE `ID` = "'.$_GET['ID_soirees'].'"');}
+                    else if($_GET['Ans'] == "❌"){$req = $bdd->query('UPDATE soirees SET `statut` = "denied" WHERE `ID` = "'.$_GET['ID_soirees'].'"');}
+                    else if($_GET['Ans'] == "✘"){$req = $bdd->query('UPDATE soirees SET `statut` = "deleted" WHERE `ID` = "'.$_GET['ID_soirees'].'"');}
                 }
 
                 $req = $bdd->query('SELECT * FROM associations');
@@ -71,26 +87,26 @@
                             <?php }else if($assos[$count]['statut'] == "denied"){?>
                                 <tr style="background-color: #DA2C38;">
                             <?php }else if($assos[$count]['statut'] == "deleted"){?>
-                                <tr style="background-color: #7BA098;">
+                                <tr style="background-color: grey;">
                             <?php }else{?>
-                                <tr>
+                                <tr style="background-color: green;">
                             <?php }?>
                                     <th><?php echo $assos[$count]['Nom'];?></th>
                                     <td><?php echo $assos[$count]['Adresse'];?></td>
                                     <td><?php echo $assos[$count]['Note'];?></td>
-                                    <td><a style="color: blue; font-size: 100%; padding: 0;" href="<?php echo $assos[$count]['Lien'];?>"><?php echo $assos[$count]['Lien'];?></a></td>
+                                    <td><a style="color: #00B4D4; font-size: 100%; padding: 0;" href="<?php echo $assos[$count]['Lien'];?>"><?php echo $assos[$count]['Lien'];?></a></td>
                                     <td><?php echo $assos[$count]['statut'];?></td>
                                     <td>
                                         <?php if($assos[$count]['statut'] == "pending"){ ?>
                                             <form action="" method="get">
-                                                <input type="text" name="ID" value="<?php echo $assos[$count]['ID']?>" hidden>
+                                                <input type="text" name="ID_asso" value="<?php echo $assos[$count]['ID']?>" hidden>
                                                 <input type="submit" name="Ans" value="&#9989;"> / 
                                                 <input type="submit" name="Ans" value="&#10060;">
                                             </form>
-                                        <?php }else{?>
+                                        <?php }else if($assos[$count]['statut'] == "approved"){?>
                                             <form action="" method="get">
-                                                <input type="text" name="ID" value="<?php echo $assos[$count]['ID']?>" hidden>
-                                                <input type="submit" name="Ans" value="&#10008;">
+                                                <input type="text" name="ID_asso" value="<?php echo $assos[$count]['ID']?>" hidden>
+                                                <input style="background-color: #3FE533;" type="submit" name="Ans" value="&#10008;">
                                             </form>
                                         <?php }?>
                                     </td>
@@ -111,20 +127,39 @@
                             <th scope="col">Types d'études</th>
                             <th scope="col">Lien</th>
                             <th scope="col">Statut</th>
+                            <th scope="col">Actions</th>
                         </tr>
                         <?php for($count = 0;$count != count($ecoles);$count++){
                             if($ecoles[$count]['statut'] == "pending"){?>
                                 <tr style="background-color: #F9DC5C;">
+                            <?php }else if($ecoles[$count]['statut'] == "denied"){?>
+                                <tr style="background-color: #DA2C38;">
+                            <?php }else if($ecoles[$count]['statut'] == "deleted"){?>
+                                <tr style="background-color: grey">
                             <?php }else{?>
-                                <tr>
+                                <tr style="background-color: green">
                             <?php }?>
                                     <th><?php echo $ecoles[$count]['Nom'];?></th>
                                     <td><?php echo $ecoles[$count]['Adresse'];?></td>
                                     <td><?php echo $ecoles[$count]['Numero'];?></td>
                                     <td><?php echo $ecoles[$count]['Responsable'];?></td>
                                     <td><?php echo $ecoles[$count]['Etudes'];?></td>
-                                    <td><a style="color: blue; font-size: 100%; padding: 0;" href="<?php echo $ecoles[$count]['Lien'];?>"><?php echo $ecoles[$count]['Lien'];?></a></td>
+                                    <td><a style="color: #00B4D4; font-size: 100%; padding: 0;" href="<?php echo $ecoles[$count]['Lien'];?>"><?php echo $ecoles[$count]['Lien'];?></a></td>
                                     <td><?php echo $ecoles[$count]['statut'];?></td>
+                                    <td>
+                                        <?php if($ecoles[$count]['statut'] == "pending"){ ?>
+                                            <form action="" method="get">
+                                                <input type="text" name="ID_ecoles" value="<?php echo $ecoles[$count]['ID']?>" hidden>
+                                                <input type="submit" name="Ans" value="&#9989;"> / 
+                                                <input type="submit" name="Ans" value="&#10060;">
+                                            </form>
+                                        <?php }else if($ecoles[$count]['statut'] == "approved"){?>
+                                            <form action="" method="get">
+                                                <input type="text" name="ID_ecoles" value="<?php echo $ecoles[$count]['ID']?>" hidden>
+                                                <input style="background-color: #3FE533;" type="submit" name="Ans" value="&#10008;">
+                                            </form>
+                                        <?php }?>
+                                    </td>
                                 </tr>
                         <?php }?>
                     </table>
@@ -150,12 +185,17 @@
                             <th scope="col">Nom du DJ</th>
                             <th scope="col">Etat</th>
                             <th scope="col">Statut</th>
+                            <th scope="col">Actions</th>
                         </tr>
                         <?php for($count = 0;$count != count($soirees);$count++){
                             if($soirees[$count]['statut'] == "pending"){?>
                                 <tr style="background-color: #F9DC5C;">
+                            <?php }else if($soirees[$count]['statut'] == "denied"){?>
+                                <tr style="background-color: #DA2C38;">
+                            <?php }else if($soirees[$count]['statut'] == "deleted"){?>
+                                <tr style="background-color: grey;">
                             <?php }else{?>
-                                <tr>
+                                <tr style="background-color: green">
                             <?php }?>
                                     <th><?php echo $soirees[$count]['Nom'];?></th>
                                     <td><?php echo $soirees[$count]['Adresse'];?></td>
@@ -165,13 +205,27 @@
                                     <td><?php echo $soirees[$count]['Heure_fin'];?></td>
                                     <td><?php echo $soirees[$count]['Theme'];?></td>
                                     <td><?php echo $soirees[$count]['Prix'];?></td>
-                                    <td><a style="color: blue; font-size: 100%; padding: 0;" href="<?php echo $soirees[$count]['Affiche'];?>">Lien Affiche</a></td>
+                                    <td><a style="color: #00B4D4; font-size: 100%; padding: 0;" href="<?php echo $soirees[$count]['Affiche'];?>">Lien Affiche</a></td>
                                     <td><?php echo $soirees[$count]['Places_restantes'];?>/<?php echo $soirees[$count]['Places'];?></td>
-                                    <td><a style="color: blue; font-size: 100%; padding: 0;" href="<?php echo $soirees[$count]['Billeterie'];?>"><?php echo $soirees[$count]['Billeterie'];?></a></td>
+                                    <td><a style="color: #00B4D4; font-size: 100%; padding: 0;" href="<?php echo $soirees[$count]['Billeterie'];?>"><?php echo $soirees[$count]['Billeterie'];?></a></td>
                                     <td><?php echo $soirees[$count]['Lieu_type'];?></td>
-                                    <td><a style="color: blue; font-size: 100%; padding: 0;" href="<?php echo $soirees[$count]['DJ_lien'];?>"><?php echo $soirees[$count]['DJ'];?></a></td>
+                                    <td><a style="color: #00B4D4; font-size: 100%; padding: 0;" href="<?php echo $soirees[$count]['DJ_lien'];?>"><?php echo $soirees[$count]['DJ'];?></a></td>
                                     <td><?php echo $soirees[$count]['Etat'];?></td>
                                     <td><?php echo $soirees[$count]['statut'];?></td>
+                                    <td>
+                                        <?php if($soirees[$count]['statut'] == "pending"){ ?>
+                                            <form action="" method="get">
+                                                <input type="text" name="ID_soirees" value="<?php echo $soirees[$count]['ID']?>" hidden>
+                                                <input type="submit" name="Ans" value="&#9989;"> / 
+                                                <input type="submit" name="Ans" value="&#10060;">
+                                            </form>
+                                        <?php }else if($soirees[$count]['statut'] == "approved"){?>
+                                            <form action="" method="get">
+                                                <input type="text" name="ID_soirees" value="<?php echo $soirees[$count]['ID']?>" hidden>
+                                                <input style="background-color: #3FE533;" type="submit" name="Ans" value="&#10008;">
+                                            </form>
+                                        <?php }?>
+                                    </td>
                                 </tr>
                         <?php }?>
                     </table>
@@ -191,6 +245,7 @@
                             <th scope="col">Latitude / Longitude</th>
                             <th scope="col">Pref Code</th>
                             <th scope="col">Partnership status</th>
+                            <th scope="col">Actions</th>
                         </tr>
                         <?php for($count = 0;$count != count($users);$count++){
                             if($users[$count]['partnership'] == "pending"){?>
@@ -235,6 +290,6 @@
                 }
             </script>
 
-            <?php //include 'sidebar.php';?>
+            <?php include 'sidebar.php';?>
         </body>
 </html>

@@ -29,6 +29,10 @@
                     $infos['complete_adress'] = $_GET['rue'].", ".$_GET['ville'];
 
                     $req = $bdd->query('INSERT INTO associations (Nom, Adresse, Lien, statut) VALUES ("'.$infos['nom_asso'].'","'.$infos['complete_adress'].'", "'.$infos['lien_asso'].'", "pending")');
+                    $req = $bdd->query('SELECT COUNT(*) FROM associations');
+                    $donnees = $req->fetch();
+                    $partner_count = $donnees[0];
+                    $req = $bdd->query('UPDATE utilisateurs SET `partnership` = "'.$partner_count.'" WHERE ID = "'.$_SESSION['id'].'"');
                     $req = $bdd->query('INSERT INTO ecoles (Nom, Adresse, Numero, Responsable, Etudes, Lien, statut) VALUES ("'.$infos['nom_ecole'].'","'.$infos['complete_adress'].'", "'.$infos['numero_ecole'].'", "'.$infos['respo'].'", "'.$infos['etudes'].'", "'.$infos['lien_ecole'].'", "pending")');
 
                     ?>
