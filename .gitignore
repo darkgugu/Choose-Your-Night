@@ -2,3 +2,5 @@
 Code/test.php
 Code/test_apis.php
 Code/svg_view.php
+*.svg
+Images/picto_svg_ok/jeuDeDonneesPictos.csv
