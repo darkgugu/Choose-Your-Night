@@ -1,16 +1,17 @@
+<?php
+    session_start();
+?>
 <html>
     <head>
         <title></title>
         <link rel="stylesheet" type="text/css" href="stylesheet.css">
         <style>
-        div{
-            height: 100%;
-            width: 33.3%;
-            display: inline-block;
-            padding: 0;
-        }
-        
-        
+            div{
+                height: 100%;
+                width: 33.3%;
+                display: inline-block;
+                padding: 0;
+            }
         </style>
     </head>
         <body>
@@ -32,9 +33,13 @@
 
                 $req = $bdd->query('SELECT COUNT(ID) FROM ecoles WHERE ID IN (SELECT ecoles_ID FROM ecoles_has_associations WHERE ID IN (SELECT ecoles_has_associations_ID FROM organisateurs WHERE soirees_ID = "'.$soiree["ID"].'"))');
                 $donnees = $req->fetch();
-                $orga_count = $donnees[0]; 
+                $orga_count = $donnees[0];
 
-                //var_dump($orga);
+                $req = $bdd->query('SELECT longitude, latitude from utilisateurs WHERE ID = "'.$_SESSION['id'].'" ');
+                $donnees = $req->fetch();
+                $place = $donnees;
+
+                //var_dump($place);
             ?>
 
             <div class="center_tile" style="float:left;">
@@ -101,6 +106,12 @@
 
             <script>
 
+                var lat = 48.857439;
+                var lng = 2.356341;
+
+                var lat_user = <?php echo $place[1];?>;
+                var lng_user = <?php echo $place[0];?>;
+
                 function initMap(){
 
                     var place = {lat: 48.857439, lng: 2.356341};
@@ -112,7 +123,7 @@
                 var array;
                 var headers = new Headers();
                 headers.append('Authorization', 'Basic ' + btoa('947fc96b-fbba-47d7-894d-be9dd87e93e8:'));
-                var url = "https://api.navitia.io/v1/coverage/fr-idf/journeys?from=2.369884%3B48.816784&to=2.356253%3B48.857508";
+                var url = "https://api.navitia.io/v1/coverage/fr-idf/journeys?from=" + lng_user + "%3B" + lat_user + "&to=" + lng + "%3B" + lat;
                 
                 fetch(url, {headers: headers})
                 .then(function(response){
@@ -132,7 +143,7 @@
                     var nb_sections = array.journeys[0].sections.length;
                     var transport = [];
                     var lines = [];
-                    var output = ""
+                    var output = "";
 
                     for(var count = 0;count != nb_sections;count++){
 
@@ -144,7 +155,13 @@
 
                             transport[count] = "Marche";
                         }
-                        else{
+                        else if(array.journeys[0].sections[count].type == "transfer"){
+
+                            transport[count] = "Changement";
+                        }else if(array.journeys[0].sections[count].type == "waiting"){
+
+                            transport[count] = Math.round(array.journeys[0].sections[count].duration / 60) + "mn";
+                        }else{
 
                             transport[count] = array.journeys[0].sections[count].type
                         }
@@ -160,9 +177,10 @@
 
                             output = output + transport[count] + ", ";
                         }
+                        console.log(output);
                     }
 
-                    output = output + Math.round(duration) + "mn"
+                    output = output + "Total: " + Math.round(duration) + "mn"
                     display.textContent = output;
                 }
             </script>
