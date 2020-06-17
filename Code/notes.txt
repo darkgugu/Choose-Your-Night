@@ -21,3 +21,7 @@ Places restantes ?? (penser à un système genre places restantes à telle date/
 SECURE LE BACKEND (url)
 
 rester sur le même onglet quand on change de page (backend)
+
+Moncompte : modif des infos + bouton déconnexion
+
+Rajouter les petits dessins de lignes de métro parce que Jazz à dit que c'était pas beau
