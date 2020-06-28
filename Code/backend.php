@@ -256,7 +256,14 @@
                                     <th><?php echo $users[$count]['username'];?></th>
                                     <td><?php echo $users[$count]['email'];?></td>
                                     <td><?php echo $users[$count]['create_time'];?></td>
-                                    <td><?php echo $users[$count]['raison'];?></td>
+                                    <?php if($users[$count]['raison'] == 'partner'){?>
+                                    
+                                        <td style="color: blue;">
+                                    <?php }else if($users[$count]['raison'] == 'admin'){?>
+                                        <td style="color: red;">
+                                    <?php }else{?>
+                                        <td>
+                                    <?php } echo $users[$count]['raison'];?></td>
                                     <td><?php echo $users[$count]['nom'];?></td>
                                     <td><?php echo $users[$count]['adresse'];?></td>
                                     <td><?php echo $users[$count]['latitude'];?> / <?php echo $users[$count]['longitude'];?></td>

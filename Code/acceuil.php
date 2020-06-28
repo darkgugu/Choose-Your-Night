@@ -17,11 +17,11 @@
             
                 $bdd = new PDO('mysql:host=localhost;dbname=CYN;charset=utf8', 'root', '');
 
-                $req = $bdd->query('SELECT COUNT(ID) as total from soirees');
+                $req = $bdd->query('SELECT COUNT(ID) as total from soirees WHERE statut = "approved"');
                 $donnees = $req->fetch();
                 $nb_soirees = $donnees['total'];
 
-                $req = $bdd->query('SELECT * from soirees');
+                $req = $bdd->query('SELECT * from soirees WHERE statut = "approved"');
                 $donnees = $req->fetchAll();
                 $soirees = $donnees;
 
@@ -36,7 +36,7 @@
                     $req = $bdd->query('SELECT COUNT(ID) FROM ecoles WHERE ID IN (SELECT ecoles_ID FROM ecoles_has_associations WHERE ID IN (SELECT ecoles_has_associations_ID FROM organisateurs WHERE soirees_ID = "'.$soiree_ID.'"))');
                     $donnees = $req->fetch();
                     $orga_count = $donnees[0];
-           ?>
+            ?>
 
             <div style="display: inline-block;" class="tile"> 
                 <form action="display_tile.php" method="get">

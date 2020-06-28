@@ -42,6 +42,7 @@
 
                 $_SESSION['nom'] = $infos[2];
                 $_SESSION['id'] = $donnees[0];
+                $_SESSION['perm'] = 'user';
                 
                 header('Location: acceuil.php');
                 exit();
@@ -121,9 +122,9 @@
                 
                 <input id="lat" type="text" name="lat" value="" hidden>
                 <input id="lng" type="text" name="lng" value="" hidden>
-                <input id="validate" type="submit" name="Valider" value="Valider" hidden>
-                <input id="next" type="button" name="next" value="Suivant" onclick="suivant()">
                 <input id="prev" type="button" name="next" value="Précédent" onclick="precedent()" hidden>
+                <input id="next" type="button" name="next" value="Suivant" onclick="suivant()">
+                <input id="validate" type="submit" name="Valider" value="Valider" hidden>
             </form>
         </div>
 
