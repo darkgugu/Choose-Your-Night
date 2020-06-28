@@ -12,13 +12,15 @@
                 display: inline-block;
                 padding: 0;
             }
+            .images{
+                width: 30px;
+                length: 30px;
+            }
         </style>
     </head>
         <body>
             <?php
             
-                //var_dump($_GET);
-
                 $name = $_GET["soiree"];
 
                 $bdd = new PDO('mysql:host=localhost;dbname=CYN;charset=utf8', 'root', '');
@@ -39,7 +41,7 @@
                 $donnees = $req->fetch();
                 $place = $donnees;
 
-                //var_dump($place);
+                //var_dump($soiree);
             ?>
 
             <div class="center_tile" style="float:left;">
@@ -93,28 +95,31 @@
                 <div class="center_tile " style="background-color:AntiqueWhite; border-radius: 10px; height: 41%; width: 100%">
                     
                     Itinéraire depuis chez vous <br><br>
+                    <img class="images" id="1"><img class="images" id="2"><img class="images" id="3"><img class="images" id="4"><img class="images" id="5">
+                    <img class="images" id="6"><img class="images" id="7"><img class="images" id="8"><img class="images" id="9">
                     <span id="display"></span>
+
                 </div>
             </div>
 
             <div style="float:right">
 
-                <img style="height: inherit;" src="../Images/Affiches/affiche_thanksgiving">
+                <img style="height: inherit;" src="<?php echo $soiree['Affiche'];?>">
             </div>
 
             <?php include 'sidebar.php';?>
 
             <script>
 
-                var lat = 48.857439;
-                var lng = 2.356341;
+                var lat = <?php echo $soiree['latitude'];?>;
+                var lng = <?php echo $soiree['longitude'];?>;
 
                 var lat_user = <?php echo $place[1];?>;
                 var lng_user = <?php echo $place[0];?>;
 
                 function initMap(){
 
-                    var place = {lat: 48.857439, lng: 2.356341};
+                    var place = {lat: <?php echo $soiree['latitude'];?>, lng: <?php echo $soiree['longitude'];?>};
                     var map = new google.maps.Map(document.getElementById('map'), {zoom: 18, center: place});
                     var marker = new google.maps.Marker({position: place, map: map});
                 }
@@ -136,9 +141,13 @@
                     add();
                     
                 });
+            </script>
 
+            <script>
                 function add(){
                 
+                    var url_0 = "../Images/picto_svg_ok/";
+                    var url_1 = "genRVB.svg";
                     var duration = array.journeys[0].duration / 60;
                     var nb_sections = array.journeys[0].sections.length;
                     var transport = [];
@@ -149,7 +158,7 @@
 
                         if(array.journeys[0].sections[count].type == "public_transport"){
 
-                            lines[count] = array.journeys[0].sections[count].display_informations;
+                            lines[count] = array.journeys[0].sections[count].display_informations.network[0] + array.journeys[0].sections[count].display_informations.code;
                         }
                         if(array.journeys[0].sections[count].type == "street_network"){
 
@@ -167,17 +176,23 @@
                         }
                     }
 
+                    console.log(transport);
+                    console.log(lines);
+                    var count2 = 1;
+
                     for(var count = 0;count != nb_sections;count++){
 
                         if(transport[count] == "public_transport"){
-
-                            output = output + lines[count].network + " " + lines[count].code + ", ";
+                            document.getElementById(count2).setAttribute('src',url_0 + lines[count] + url_1);
+                            document.getElementById(count2 + 1).setAttribute('src',url_0 + "fleche.png");
                         }
                         else{
-
-                            output = output + transport[count] + ", ";
+                            document.getElementById(count2).setAttribute('src',url_0 + "Marche.png");
+                            if(count != nb_sections - 1){
+                                document.getElementById(count2 + 1).setAttribute('src',url_0 + "fleche.png");
+                            }
                         }
-                        console.log(output);
+                        count2 = count2 + 2;
                     }
 
                     output = output + "Total: " + Math.round(duration) + "mn"
