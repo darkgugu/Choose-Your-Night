@@ -24,4 +24,6 @@ rester sur le même onglet quand on change de page (backend)
 
 Moncompte : modif des infos + bouton déconnexion
 
-Rajouter les petits dessins de lignes de métro parce que Jazz à dit que c'était pas beau
+Rajouter les petits dessins de lignes de métro parce que Jazz à dit que c'était pas beau7
+
+Faire des tests avec d'autres adresses pour tester plus de  moyens de transport

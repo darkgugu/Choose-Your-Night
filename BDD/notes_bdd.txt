@@ -16,3 +16,4 @@ Relier users à asso/ecoles
 Mettre à jour le mcd
 Augmenter les tailles des varchars pour les adresses
 Rajouter STATUT à la table soirées
+Rajouter lat/lng à soirées
