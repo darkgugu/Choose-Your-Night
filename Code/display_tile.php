@@ -158,7 +158,7 @@
 
                         if(array.journeys[0].sections[count].type == "public_transport"){
 
-                            lines[count] = array.journeys[0].sections[count].display_informations.network[0] + array.journeys[0].sections[count].display_informations.code;
+                            lines[count] = array.journeys[0].sections[count].display_informations.commercial_mode[0] + array.journeys[0].sections[count].display_informations.code;
                         }
                         if(array.journeys[0].sections[count].type == "street_network"){
 
