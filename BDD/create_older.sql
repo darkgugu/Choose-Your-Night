@@ -1,10 +1,11 @@
--- Mon Jun 29 00:41:17 2020
+-- Mon May 18 08:33:29 2020
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
-DROP DATABASE IF EXISTS `CYN`;
-CREATE DATABASE `CYN`;
+DROP DATABASE IF EXISTS `CYN` ;
+
+CREATE SCHEMA IF NOT EXISTS `CYN` DEFAULT CHARACTER SET utf8 ;
 USE `CYN`;
 
 -- -----------------------------------------------------
@@ -15,13 +16,9 @@ DROP TABLE IF EXISTS `CYN`.`ecoles` ;
 CREATE TABLE IF NOT EXISTS `CYN`.`ecoles` (
   `ID` INT NOT NULL AUTO_INCREMENT,
   `Nom` VARCHAR(45) NULL,
-  `Adresse` VARCHAR(200) NULL,
+  `Adresse` VARCHAR(45) NULL,
   `Numero` VARCHAR(45) NULL,
   `Responsable` VARCHAR(45) NULL,
-  `Etudes` VARCHAR(45) NULL,
-  `Ratio` INT NULL,
-  `Lien` VARCHAR(45) NULL,
-  `statut` VARCHAR(45) NULL,
   PRIMARY KEY (`ID`))
 ENGINE = InnoDB;
 
@@ -37,13 +34,6 @@ CREATE TABLE IF NOT EXISTS `CYN`.`utilisateurs` (
   `email` VARCHAR(255) NULL,
   `password` VARCHAR(32) NOT NULL,
   `create_time` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
-  `raison` VARCHAR(45) NULL DEFAULT 'user',
-  `nom` VARCHAR(45) NULL,
-  `adresse` VARCHAR(200) NULL,
-  `latitude` VARCHAR(45) NULL,
-  `longitude` VARCHAR(45) NULL,
-  `partnership` VARCHAR(45) NULL,
-  `pref` INT NULL,
   PRIMARY KEY (`ID`));
 
 
@@ -55,10 +45,8 @@ DROP TABLE IF EXISTS `CYN`.`associations` ;
 CREATE TABLE IF NOT EXISTS `CYN`.`associations` (
   `ID` INT NOT NULL AUTO_INCREMENT,
   `Nom` VARCHAR(45) NULL,
-  `Adresse` VARCHAR(200) NULL,
+  `Adresse` VARCHAR(45) NULL,
   `Note` INT NULL,
-  `Lien` VARCHAR(45) NULL,
-  `statut` VARCHAR(45) NULL,
   PRIMARY KEY (`ID`))
 ENGINE = InnoDB;
 
@@ -71,24 +59,18 @@ DROP TABLE IF EXISTS `CYN`.`soirees` ;
 CREATE TABLE IF NOT EXISTS `CYN`.`soirees` (
   `ID` INT NOT NULL AUTO_INCREMENT,
   `Nom` VARCHAR(45) NULL,
-  `Adresse` VARCHAR(200) NULL,
-  `longitude` VARCHAR(45) NULL,
-  `latitude` VARCHAR(45) NULL,
-  `Lieu_nom` VARCHAR(45) NULL,
-  `Date` VARCHAR(45) NULL,
-  `Heure_début` VARCHAR(45) NULL,
-  `Heure_fin` VARCHAR(45) NULL,
+  `Adresse` VARCHAR(45) NULL,
+  `Date` DATETIME NULL,
   `Theme` VARCHAR(45) NULL,
   `Prix` INT NULL,
   `Affiche` VARCHAR(45) NULL,
   `Places` INT NULL,
-  `Places_restantes` INT NULL,
   `Billeterie` VARCHAR(45) NULL,
-  `Lieu_type` VARCHAR(45) NULL,
+  `Lieu_type` ENUM("Bar", "Salle") NULL,
   `DJ` VARCHAR(45) NULL,
   `DJ_lien` VARCHAR(45) NULL,
   `Etat` VARCHAR(45) NULL,
-  `statut` VARCHAR(45) NULL,
+  `Durée` INT NULL,
   PRIMARY KEY (`ID`))
 ENGINE = InnoDB;
 
@@ -114,6 +96,7 @@ CREATE TABLE IF NOT EXISTS `CYN`.`ecoles_has_associations` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
+
 
 -- -----------------------------------------------------
 -- Table `CYN`.`Organisateurs`
