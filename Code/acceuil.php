@@ -8,6 +8,14 @@
         <link rel="stylesheet" type="text/css" href="stylesheet.css">
     </head>
         <body>
+
+        <form style="position: fixed; right: 0; top: -5;" action="" method="GET">            
+            <select name="order">
+                <option value="prix_asc">Prix (Croissant)</option>
+                <option value="prix_desc">Prix (Décroissant)</option>
+            </select>
+            <input type="submit" value="Trier">
+        </form>
             
         <a href="account_infos.php"><img class="account" src="../Images/Ressources/account.jpg"></img></a>
 
@@ -21,13 +29,28 @@
                 $donnees = $req->fetch();
                 $nb_soirees = $donnees['total'];
 
-                $req = $bdd->query('SELECT * from soirees WHERE statut = "approved"');
+                if(isset($_GET['order'])){    
+                    switch($_GET['order']){
+                        case 'prix_asc':
+
+                            $req = $bdd->query('SELECT * from soirees WHERE statut = "approved" ORDER BY Prix DESC');
+                        break;
+                        case 'prix_desc':
+
+                            $req = $bdd->query('SELECT * from soirees WHERE statut = "approved" ORDER BY Prix ASC');
+                        break;
+                    }
+                }
+                else{
+
+                    $req = $bdd->query('SELECT * from soirees WHERE statut = "approved"');
+                }           
                 $donnees = $req->fetchAll();
                 $soirees = $donnees;
 
                 for($count = 0;$count != $nb_soirees;$count++){
                     $count2 = 1;
-                    $soiree_ID = $count + 1;
+                    $soiree_ID = $soirees[$count][0];
 
                     $req = $bdd->query('SELECT Nom FROM ecoles WHERE ID IN (SELECT ecoles_ID FROM ecoles_has_associations WHERE ID IN (SELECT ecoles_has_associations_ID FROM organisateurs WHERE soirees_ID = "'.$soiree_ID.'"))');
                     $donnees = $req->fetchAll();
