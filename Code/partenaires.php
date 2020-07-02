@@ -35,9 +35,13 @@
                     $req = $bdd->query('INSERT INTO associations (Nom, Adresse, Lien, statut) VALUES ("'.$infos['nom_asso'].'","'.$infos['complete_adress'].'", "'.$infos['lien_asso'].'", "pending")');
                     $req = $bdd->query('SELECT COUNT(*) FROM associations');
                     $donnees = $req->fetch();
-                    $partner_count = $donnees[0];
-                    $req = $bdd->query('UPDATE utilisateurs SET `partnership` = "'.$partner_count.'" WHERE ID = "'.$_SESSION['id'].'"');
+                    $id_asso = $donnees[0];
+                    $req = $bdd->query('UPDATE utilisateurs SET `partnership` = "'.$id_asso.'" WHERE ID = "'.$_SESSION['id'].'"');
                     $req = $bdd->query('INSERT INTO ecoles (Nom, Adresse, Numero, Responsable, Etudes, Lien, statut) VALUES ("'.$infos['nom_ecole'].'","'.$infos['complete_adress'].'", "'.$infos['numero_ecole'].'", "'.$infos['respo'].'", "'.$infos['etudes'].'", "'.$infos['lien_ecole'].'", "pending")');
+                    $req = $bdd->query('SELECT COUNT(*) FROM ecoles');
+                    $donnees = $req->fetch();
+                    $id_ecole = $donnees[0];
+                    $req = $bdd->query('INSERT INTO ecoles_has_associations (ecoles_ID, associations_ID) VALUES ("'.$id_ecole.'", "'.$id_asso.'")');
 
                     ?>
                         <div class="center">
@@ -50,6 +54,17 @@
 
                     if($_SESSION['perm'] == 'user'){
 
+                        $req = $bdd->query('SELECT * FROM utilisateurs WHERE ID ="'.$_SESSION['id'].'"');
+                        $donnees = $req->fetch();
+
+                        if(isset($donnees['partnership'])){
+                        ?>
+                            <div class="center">
+                            
+                                <h1>Votre demande à été prise en compte</h1>
+                            </div>
+                        <?php
+                        }else{
                         ?>
                             <div id="user" class="center">
                             
@@ -57,6 +72,7 @@
                                 <button onclick="display()">Devenir Partenaire</button>
                             </div>   
                         <?php
+                        }
                     }  
                     if($_SESSION['perm'] != 'user'){
                         ?>
@@ -110,10 +126,16 @@
                                     <table style="text-align: center;">
                                         <tr>
                                             <th>Nom de la soirée</th>
+                                            <th>Etat</th>
+                                            <th>Statut</th>
+                                            <th>Note</th>
                                         </tr>
                                         <?php for($count = 0;$count != count($soirees);$count++){?>
                                             <tr>
                                                 <td><a href="display_tile.php?soiree=<?php echo $soirees[$count]['Nom'];?>"><?php echo $soirees[$count]['Nom'];?></a></td>
+                                                <td><?php echo $soirees[$count]['Etat'];?></td>
+                                                <td><?php echo $soirees[$count]['statut'];?></td>
+                                                <td><?php if(isset($soirees[$count]['Note'])){ echo $soirees[$count]['Note'];}else{ echo "AD";};?></td>
                                             </tr>
                                         <?php }?>
                                     </table>
