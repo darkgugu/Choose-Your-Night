@@ -10,10 +10,12 @@
 **Ajouter latitude et longitude
 **Changer le datetime en varchar
 
-Mettre raison en user par défault
-Rajouter statut dans asso et écoles
-Relier users à asso/ecoles
+*Mettre raison en user par défault
+*Rajouter statut dans asso et écoles
+*Augmenter les tailles des varchars pour les adresses
+*Rajouter STATUT à la table soirées
+*Rajouter lat/lng à soirées
+
+
 Mettre à jour le mcd
-Augmenter les tailles des varchars pour les adresses
-Rajouter STATUT à la table soirées
-Rajouter lat/lng à soirées
+Relier users à asso/ecoles ?

@@ -4,17 +4,11 @@ Ajouter le tri (au moins par prix croisant décroissant) (tri AJAX ou rechargeme
 
 Liste d'ami ?
 
-Page compte
-
-Partie admin + form pour orga
-
 Rendre le form account safer
 
 Changer le bouton account pour qu'il soit à la meme place sur toutes les pages ?
 
 Favicon & titles
-
-Ajouter la modification des infos sur mon compte
 
 Places restantes ?? (penser à un système genre places restantes à telle date/heure)
 
@@ -24,6 +18,6 @@ rester sur le même onglet quand on change de page (backend)
 
 Moncompte : modif des infos + bouton déconnexion
 
-Rajouter les petits dessins de lignes de métro parce que Jazz à dit que c'était pas beau7
+Rajouter les petits dessins de lignes de métro parce que Jazz à dit que c'était pas beau
 
-Faire des tests avec d'autres adresses pour tester plus de  moyens de transport
+Faire des tests avec d'autres adresses pour tester plus de moyens de transport
