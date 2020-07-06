@@ -9,14 +9,20 @@
         <style>        
             .third{
                 height: 100%;
-                width: 33.3%;
+                width: 33%;
                 display: inline-block;
                 padding: 0;
                 text-align: center;
+                border: 1px solid grey;
+                border-radius: 10px;
+                background:-webkit-linear-gradient(top, grey 0%, grey 10%, white 10%);
             }
-            table,
-            td {
-                border: 1px solid #333;
+            td, tr, th{
+                border: 1px solid grey;
+                padding: 12px 20px;
+            }
+            table{
+                border: 1px solid grey;
             }
         </style>
     </head>
@@ -100,11 +106,31 @@
 
                                     Nom de l'association : <?php echo $asso[1];?><br>
                                     Adresse de l'association : <?php echo $asso[2];?><br>
-                                    Lien du site de l'association : <a href="<?php echo $asso[4];?>"><?php echo $asso[4];?></a>
+                                    Lien du site de l'association : <a href="https://www.<?php echo $asso[4];?>"><?php echo $asso[4];?></a>
 
                                     <div class="center" style="font-size: 100px">
                                         
-                                        Note : <?php echo $asso[3];?>/5
+                                        Note : 
+                                        <?php 
+                                        
+                                        $req = $bdd->query('SELECT SUM(`note`) FROM `noted` WHERE `soirees_ID` IN (SELECT `soirees_ID` FROM organisateurs WHERE ecoles_has_associations_ID = (SELECT ID FROM ecoles_has_associations WHERE associations_ID = (SELECT partnership FROM utilisateurs WHERE ID = "'.$_SESSION['id'].'")))');
+                                        $donnees = $req->fetch();
+                                        $note = $donnees[0];
+
+                                        $req = $bdd->query('SELECT COUNT(`note`) FROM `noted` WHERE `soirees_ID` IN (SELECT `soirees_ID` FROM organisateurs WHERE ecoles_has_associations_ID = (SELECT ID FROM ecoles_has_associations WHERE associations_ID = (SELECT partnership FROM utilisateurs WHERE ID = "'.$_SESSION['id'].'")))');
+                                        $donnees = $req->fetch();
+                                        
+                                        if($donnees[0] != 0){
+                                            
+                                            $note /= $donnees[0];
+                                        }
+                                        else{
+
+                                            $note = "AD";
+                                        }
+                                        echo $note;
+                                        ?>
+                                        /5
                                     </div>
                                 </div>
 
@@ -115,7 +141,7 @@
 
                                     Nom de l'école : <?php echo $ecole[1];?><br>
                                     Adresse de l'école : <?php echo $ecole[2];?><br>
-                                    Lien du site de l'école : <a href="<?php echo $ecole[7];?>"><?php echo $ecole[7];?></a>
+                                    Lien du site de l'école : <a href="https://www.<?php echo $ecole[7];?>"><?php echo $ecole[7];?></a>
                                 </div>
 
                                 <div class="third" style="float:right;">
@@ -135,7 +161,27 @@
                                                 <td><a href="display_tile.php?soiree=<?php echo $soirees[$count]['Nom'];?>"><?php echo $soirees[$count]['Nom'];?></a></td>
                                                 <td><?php echo $soirees[$count]['Etat'];?></td>
                                                 <td><?php echo $soirees[$count]['statut'];?></td>
-                                                <td><?php if(isset($soirees[$count]['Note'])){ echo $soirees[$count]['Note'];}else{ echo "AD";};?></td>
+                                                <td><?php
+                                                    
+                                                    $req = $bdd->query('SELECT SUM(note) FROM noted WHERE soirees_ID = "'.$soirees[$count]['ID'].'"');
+                                                    $donnees = $req->fetch();
+                                                    $note = $donnees[0];
+
+                                                    if($note == ''){
+
+                                                        echo "AD";
+                                                    }
+                                                    else{ 
+                                                        
+                                                        $req = $bdd->query('SELECT COUNT(note) FROM noted WHERE soirees_ID = "'.$soirees[$count]['ID'].'"');
+                                                        $donnees = $req->fetch();
+                                                        $note /= $donnees[0];
+
+                                                        echo $note;
+
+                                                    }
+                                                    
+                                                ?>/5</td>
                                             </tr>
                                         <?php }?>
                                     </table>
@@ -144,9 +190,9 @@
                                     <form id="soirees_form" action="apercu.php" method="post" enctype="multipart/form-data" hidden>
 
                                         <input type="text" name="nom" placeholder="Nom de la soirée">
-                                        <input type="text" name="adresse" placeholder="Adresse" onchange="coords()" id="address"><br>
+                                        <input type="text" name="adresse" placeholder="Adresse complète" onchange="coords()" id="address"><br>
                                         <input type="text" name="nom_lieu" placeholder="Nom du lieu">
-                                        <input type="text" name="date" placeholder="Date (DD/MM/YY)"><br>
+                                        <input type="text" name="date" placeholder="Date (YYYY-MM-DD)"><br>
                                         <input type="text" name="debut" placeholder="Heure de début (HHhMM)">
                                         <input type="text" name="fin" placeholder="Heure de fin (HHhMM)"><br>
                                         <input type="text" name="theme" placeholder="Thème">
@@ -156,6 +202,7 @@
                                         <input type="text" name="type_lieu" placeholder="Type du lieu (Bar/Salle)">
                                         <input type="text" name="DJ" placeholder="DJ"><br>
                                         <input type="text" name="DJ_lien" placeholder="DJ lien"><br>
+                                        <textarea name="details" maxlength="1000" rows="5" cols="33" placeholder="Ecrivez quelques lignes de description pour votre soirée"></textarea><br>
                                         Affiche: <input type="file" name="affiche">
                                         <input id="lat" type="text" name="lat" value="" hidden>
                                         <input id="lng" type="text" name="lng" value="" hidden>
