@@ -8,7 +8,7 @@
     </head>
         <body id="main">
 
-            <div id="compte">
+            <div id="compte" style="margin-top: 50vh;transform: translateY(-50%);">
                 <h1>Mon compte</h1>
                 <h2>Mes informations personelles</h2>
                 <?php

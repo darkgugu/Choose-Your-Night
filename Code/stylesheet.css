@@ -10,7 +10,7 @@
     margin-top: 50vh;
     transform: translateY(-50%);
 }
-input, select{
+input, select, textarea{
     border: 1px solid grey;
     border-radius: 10px;
     padding: 12px 20px;
@@ -41,13 +41,12 @@ input, select{
 }
 .account{
   cursor: pointer;
-  padding: 10px 15px;
   border: none;
   position: fixed;
-  left: -20;
+  left: 0;
   top: 50;
-  height: 50;
-  width: 65;
+  height: 45 ;
+  width: 50;
 }
 /* The sidebar menu */
 .sidebar {
