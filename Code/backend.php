@@ -59,6 +59,24 @@
                 $req = $bdd->query('SELECT * FROM utilisateurs');
                 $donnees = $req->fetchAll();
                 $users = $donnees;
+
+                for($count = 0;$count != count($soirees);$count++){
+
+                    $dates[$count] = "20".$soirees[$count]['Date'][2].$soirees[$count]['Date'][3]."/".$soirees[$count]['Date'][5].$soirees[$count]['Date'][6]."/".$soirees[$count]['Date'][8].$soirees[$count]['Date'][9];
+                }
+                for($count = 0;$count != count($soirees);$count++){
+
+                    if(strtotime($dates[$count]) +172800 < strtotime("now")){
+
+                        $id_date = $count + 1;
+                        $req = $bdd->query('UPDATE soirees SET `Etat` = "over" WHERE `ID` = "'.$id_date.'"');
+                    }
+                    if(strtotime($dates[$count]) < strtotime("now") && strtotime($dates[$count]) + 172800 > strtotime("now")){
+
+                        $id_date = $count + 1;
+                        $req = $bdd->query('UPDATE soirees SET `Etat` = "notation" WHERE `ID` = "'.$id_date.'"');
+                    }
+                }
             ?>
 
             <div class="domtab">

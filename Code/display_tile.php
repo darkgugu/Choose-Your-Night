@@ -29,7 +29,7 @@
                 $donnees = $req->fetch();
                 $soiree = $donnees;
 
-                $req = $bdd->query('SELECT Nom FROM ecoles WHERE ID IN (SELECT ecoles_ID FROM ecoles_has_associations WHERE ID IN (SELECT ecoles_has_associations_ID FROM organisateurs WHERE soirees_ID = "'.$soiree["ID"].'"))');
+                $req = $bdd->query('SELECT Nom, ID FROM ecoles WHERE ID IN (SELECT ecoles_ID FROM ecoles_has_associations WHERE ID IN (SELECT ecoles_has_associations_ID FROM organisateurs WHERE soirees_ID = "'.$soiree["ID"].'"))');
                 $donnees = $req->fetchAll();
                 $orga = $donnees;
 
@@ -42,12 +42,68 @@
                 $place = $donnees;
 
                 //var_dump($soiree);
+                function str_date($date){
+
+                    $string = "";
+
+                    if($date[8] != '0'){$string .= $date[8];}
+                    $string .= $date[9];
+
+                    switch($date[6]){
+                        case '0':
+
+                            $string .= ' Octobre';
+                        break;
+                        case '1':
+
+                            if($date[5] == 0){$string .= ' Janvier';}
+                            else{$string .= ' Novembre';}
+                        break;
+                        case '2':
+
+                            if($date[5] == 0){$string .= ' Février';}
+                            else{$string .= ' Décembre';}
+                        break;
+                        case '3':
+
+                            $string .= ' Mars';
+                        break;
+                        case '4':
+
+                            $string .= ' Avril';
+                        break;
+                        case '5':
+
+                            $string .= ' Mai';
+                        break;
+                        case '6':
+
+                            $string .= ' Juin';
+                        break;
+                        case '7':
+
+                            $string .= ' Juillet';
+                        break;
+                        case '8':
+
+                            $string .= ' Aout';
+                        break;
+                        case '9':
+
+                            $string .= ' Septembre';
+                        break;     
+                    }
+
+                    if($date[2] != '2' || $date[3] != '0'){$string .= ' 20'.$date[2].$date[3];}
+
+                    return $string;
+                }
             ?>
 
             <div class="center_tile" style="float:left;">
 
                 <h1><?php echo $soiree["Nom"];?></h1></br>
-                <?php echo $soiree["Date"];?> / <?php echo $soiree["Heure_début"];?> - <?php echo $soiree["Heure_fin"];?></br>
+                <?php echo str_date($soiree["Date"]);?> / <?php echo $soiree["Heure_début"];?> - <?php echo $soiree["Heure_fin"];?></br>
                 Organisée par : 
                 
                 <form action="ecole_infos.php" method="get">                
@@ -55,6 +111,7 @@
                         for($i = 0;$i != $orga_count;$i++){
                     ?>        
                             <input class="link_button" type="submit" name="ecole" value="<?php echo $orga[$i][0];?>">
+                            <input type="text" hidden name="id" value="<?php echo $orga[$i][1];?>">
                     <?php
                             if($i != $orga_count-1){
                                 echo ", ";
@@ -62,32 +119,17 @@
                         }
                     ?></br>
                     Prix : <?php echo $soiree["Prix"];?>€ -
-                    Nombre de places restantes : <?php echo $soiree["Places"];?><br>
-                    Billeterie : <a href="<?php echo $soiree["Billeterie"];?>"><?php echo $soiree["Billeterie"];?></a><br>
+                    Nombre de places : <?php echo $soiree["Places"];?><br>
+                    Billeterie : <a href="https://www.<?php echo $soiree["Billeterie"];?>"><?php echo $soiree["Billeterie"];?></a><br>
                 </form>
 
                 <h2>Détails :</h2>
 
-                Salut à toutes et à toutes !
-
-                La fameuse fête familiale américaine Thanksgiving arrive bientôt !
-                Et comme l'Esiea est une histoire de famille, on vous convie le 28 novembre 2019 pour un afterwork chez notre bar partenaire pour célébrer Thanksgiving avec nous !
-
-                Le Lizard Lounge
-                18 rue du Bourg Tibourg
-                75004 Paris
-
-                Accès: 
-                Hôtel de Ville (métro ligne 1) 
-                Pont-Marie (métro ligne 7)
-
-                N'oubliez pas que les 30 premières pintes sont à 1€ ! 
-
-                Et si vous préférez insta, on vous invite à follow notre page @assointer.esiea !
+                <?php echo $soiree["Details"]?>
 
                 <h3>DJ</h3>
                 <?php echo $soiree["DJ"];?></br>
-                <a href="<?php echo $soiree["DJ_lien"];?>"><?php echo $soiree["DJ_lien"];?></a><br>
+                <a href="https://www.<?php echo $soiree["DJ_lien"];?>"><?php echo $soiree["DJ_lien"];?></a><br>
             </div>
 
             <div>
@@ -98,7 +140,27 @@
                     <img class="images" id="1"><img class="images" id="2"><img class="images" id="3"><img class="images" id="4"><img class="images" id="5">
                     <img class="images" id="6"><img class="images" id="7"><img class="images" id="8"><img class="images" id="9">
                     <span id="display"></span>
+                    <br>
+                    <?php
+                        $req = $bdd->query('SELECT * FROM noted WHERE utilisateurs_ID = "'.$_SESSION['id'].'" AND soirees_ID = "'.$soiree['ID'].'"');
+                        $donnees = $req->fetch();
+                        if($donnees == NULL && $soiree['Etat'] == "notation"){
 
+                            ?>
+                            
+                                <form action="acceuil.php" method="post">
+
+                                    <input type="number" id="note" name="note" min="0" max="5" style="width: 180;" placeholder="Notez entre 0 et 5">
+                                    <input type="text" name="id" value="<?php echo $soiree['ID'];?>" hidden>
+                                    <input id="validate" type="submit" name="Valider" value="Valider">
+                                </form>
+                            <?php
+                        }
+                        else if($soiree['Etat'] == "notation"){
+
+                            echo "Vous avez déjà noté cette soirée";
+                        }
+                    ?>
                 </div>
             </div>
 
