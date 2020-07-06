@@ -19,3 +19,8 @@
 
 Mettre à jour le mcd
 Relier users à asso/ecoles ?
+
+Changer le format de dates (remettre le type "Date")
+Changer "A venir" en "coming"
+Rajouter Détails + une valeur pour le INSERT.sql
+CREATE TABLE noted (`ID` INT NOT NULL AUTO_INCREMENT, utilisateurs_ID INT NOT NULL, soirees_ID INT NOT NULL, PRIMARY KEY (`ID`))
