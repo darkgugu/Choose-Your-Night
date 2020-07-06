@@ -50,7 +50,7 @@
                     $infos['affiche'] = "../Images/Affiches/affiche_".$infos['nom'].".png";
                     //var_dump($infos);
 
-                    $req = $bdd->query('INSERT INTO soirees (Nom, Adresse, Lieu_nom, Date, Heure_début, Heure_fin, Theme, Prix, Affiche, Places, Billeterie, Lieu_type, DJ, DJ_lien, Etat, statut, latitude, longitude) VALUES ("'.$infos['nom'].'","'.$infos['adresse'].'", "'.$infos['nom_lieu'].'", "'.$infos['date'].'", "'.$infos['debut'].'", "'.$infos['fin'].'", "'.$infos['theme'].'", "'.$infos['prix'].'" , "'.$infos['affiche'].'","'.$infos['places'].'" ,"'.$infos['billeterie'].'" ,"'.$infos['type_lieu'].'" ,"'.$infos['DJ'].'" ,"'.$infos['DJ_lien'].'" ,"A venir" ,"'.$infos['pending'].'", "'.$infos['lat'].'", "'.$infos['lng'].'")');
+                    $req = $bdd->query('INSERT INTO soirees (Nom, Adresse, Lieu_nom, Date, Heure_début, Heure_fin, Theme, Prix, Affiche, Places, Billeterie, Lieu_type, DJ, DJ_lien, Etat, statut, latitude, longitude, Details) VALUES ("'.$infos['nom'].'","'.$infos['adresse'].'", "'.$infos['nom_lieu'].'", "'.$infos['date'].'", "'.$infos['debut'].'", "'.$infos['fin'].'", "'.$infos['theme'].'", "'.$infos['prix'].'" , "'.$infos['affiche'].'","'.$infos['places'].'" ,"'.$infos['billeterie'].'" ,"'.$infos['type_lieu'].'" ,"'.$infos['DJ'].'" ,"'.$infos['DJ_lien'].'" ,"coming" ,"'.$infos['pending'].'", "'.$infos['lat'].'", "'.$infos['lng'].'", "'.$infos['details'].'")');
 
                     $req = $bdd->query('SELECT ID FROM soirees WHERE Nom = "'.$infos['nom'].'"');
                     $donnees = $req->fetch();
@@ -95,22 +95,7 @@
 
                 <h2>Détails :</h2>
 
-                    Salut à toutes et à toutes !
-
-                    La fameuse fête familiale américaine Thanksgiving arrive bientôt !
-                    Et comme l'Esiea est une histoire de famille, on vous convie le 28 novembre 2019 pour un afterwork chez notre bar partenaire pour célébrer Thanksgiving avec nous !
-
-                    Le Lizard Lounge
-                    18 rue du Bourg Tibourg
-                    75004 Paris
-
-                    Accès: 
-                    Hôtel de Ville (métro ligne 1) 
-                    Pont-Marie (métro ligne 7)
-
-                    N'oubliez pas que les 30 premières pintes sont à 1€ ! 
-
-                    Et si vous préférez insta, on vous invite à follow notre page @assointer.esiea !
+                    <?php echo $soiree['details']?>
 
                     <h3>DJ</h3>
                     <?php echo $soiree["DJ"];?></br>
