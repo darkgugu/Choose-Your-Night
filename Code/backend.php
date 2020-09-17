@@ -62,16 +62,16 @@
 
                 for($count = 0;$count != count($soirees);$count++){
 
-                    $dates[$count] = "20".$soirees[$count]['Date'][2].$soirees[$count]['Date'][3]."/".$soirees[$count]['Date'][5].$soirees[$count]['Date'][6]."/".$soirees[$count]['Date'][8].$soirees[$count]['Date'][9];
+                    $dates[$count] = "20".$soirees[$count]['Date'][2].$soirees[$count]['Date'][3]."/".$soirees[$count]['Date'][5].$soirees[$count]['Date'][6]."/".$soirees[$count]['Date'][8].$soirees[$count]['Date'][9]." ".$soirees[$count]['Heure_début'][0].$soirees[$count]['Heure_début'][1].":00:00";
                 }
                 for($count = 0;$count != count($soirees);$count++){
 
-                    if(strtotime($dates[$count]) +172800 < strtotime("now")){
+                    if(strtotime($dates[$count]) +172800 < (strtotime("now") + 7200)){
 
                         $id_date = $count + 1;
                         $req = $bdd->query('UPDATE soirees SET `Etat` = "over" WHERE `ID` = "'.$id_date.'"');
                     }
-                    if(strtotime($dates[$count]) < strtotime("now") && strtotime($dates[$count]) + 172800 > strtotime("now")){
+                    if(strtotime($dates[$count]) < (strtotime("now") + 7200) && strtotime($dates[$count]) + 172800 > (strtotime("now") + 7200)){
 
                         $id_date = $count + 1;
                         $req = $bdd->query('UPDATE soirees SET `Etat` = "notation" WHERE `ID` = "'.$id_date.'"');
@@ -263,7 +263,6 @@
                             <th scope="col">Latitude / Longitude</th>
                             <th scope="col">Pref Code</th>
                             <th scope="col">Partnership status</th>
-                            <th scope="col">Actions</th>
                         </tr>
                         <?php for($count = 0;$count != count($users);$count++){
                             if($users[$count]['partnership'] == "pending"){?>

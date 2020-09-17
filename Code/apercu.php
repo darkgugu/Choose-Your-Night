@@ -50,7 +50,7 @@
                     $infos['affiche'] = "../Images/Affiches/affiche_".$infos['nom'].".png";
                     //var_dump($infos);
 
-                    $req = $bdd->query('INSERT INTO soirees (Nom, Adresse, Lieu_nom, Date, Heure_début, Heure_fin, Theme, Prix, Affiche, Places, Billeterie, Lieu_type, DJ, DJ_lien, Etat, statut, latitude, longitude, Details) VALUES ("'.$infos['nom'].'","'.$infos['adresse'].'", "'.$infos['nom_lieu'].'", "'.$infos['date'].'", "'.$infos['debut'].'", "'.$infos['fin'].'", "'.$infos['theme'].'", "'.$infos['prix'].'" , "'.$infos['affiche'].'","'.$infos['places'].'" ,"'.$infos['billeterie'].'" ,"'.$infos['type_lieu'].'" ,"'.$infos['DJ'].'" ,"'.$infos['DJ_lien'].'" ,"coming" ,"'.$infos['pending'].'", "'.$infos['lat'].'", "'.$infos['lng'].'", "'.$infos['details'].'")');
+                    $req = $bdd->query('INSERT INTO soirees (Nom, Adresse, Lieu_nom, Date, Heure_début, Heure_fin, Theme, Prix, Affiche, Places, Billeterie, Lieu_type, DJ, DJ_lien, Etat, statut, latitude, longitude, Details) VALUES ("'.$infos['nom'].'","'.$infos['adresse'].'", "'.$infos['nom_lieu'].'", "'.$infos['date']." ".$infos['debut'][0].$infos['debut'][1].'", "'.$infos['debut'].'", "'.$infos['fin'].'", "'.$infos['theme'].'", "'.$infos['prix'].'" , "'.$infos['affiche'].'","'.$infos['places'].'" ,"'.$infos['billeterie'].'" ,"'.$infos['type_lieu'].'" ,"'.$infos['DJ'].'" ,"'.$infos['DJ_lien'].'" ,"coming" ,"'.$infos['pending'].'", "'.$infos['lat'].'", "'.$infos['lng'].'", "'.$infos['details'].'")');
 
                     $req = $bdd->query('SELECT ID FROM soirees WHERE Nom = "'.$infos['nom'].'"');
                     $donnees = $req->fetch();
@@ -108,7 +108,8 @@
                         
                         Itinéraire depuis chez vous <br><br>
                         <img class="images" id="1"><img class="images" id="2"><img class="images" id="3"><img class="images" id="4"><img class="images" id="5">
-                        <img class="images" id="6"><img class="images" id="7"><img class="images" id="8"><img class="images" id="9">
+                        <img class="images" id="6"><img class="images" id="7"><img class="images" id="8"><img class="images" id="9"><img class="images" id="10">
+                        <img class="images" id="11"><img class="images" id="12"><img class="images" id="13"><img class="images" id="14"><img class="images" id="15">
                         <span id="display"></span>
                         <br><br>
 

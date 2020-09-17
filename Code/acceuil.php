@@ -12,13 +12,12 @@
         <form style="position: fixed; right: 0; top: -5;" action="" method="GET">            
             <select name="order">
                 <option id="default" value="default">Options de tri</option>
-                <option id="prix_asc" value="prix_asc">Prix (Croissant)</option>
-                <option id="prix_desc" value="prix_desc">Prix (Décroissant)</option>
+                <option id="prix_asc" value="prix_asc">Prix (Décroissant)</option>
+                <option id="prix_desc" value="prix_desc">Prix (Croissant)</option>
                 <option id="date_near" value="date_near">Date (Au plus près)</option>
                 <option id="date_far" value="date_far">Date (Au plus loin)</option>
                 <option id="lieu_asc" value="lieu_asc">Bars</option>
                 <option id="lieu_desc" value="lieu_desc">Salles</option>
-
             </select>
             <input type="submit" value="Trier">
         </form>
@@ -32,6 +31,28 @@
                 $req = $bdd->query('SELECT COUNT(ID) as total from soirees WHERE statut = "approved" AND Etat IN ("coming", "notation")');
                 $donnees = $req->fetch();
                 $nb_soirees = $donnees['total'];
+
+                $req = $bdd->query('SELECT * FROM soirees');
+                $donnees = $req->fetchAll();
+                $soirees = $donnees;
+
+                for($count = 0;$count != count($soirees);$count++){
+
+                    $dates[$count] = "20".$soirees[$count]['Date'][2].$soirees[$count]['Date'][3]."/".$soirees[$count]['Date'][5].$soirees[$count]['Date'][6]."/".$soirees[$count]['Date'][8].$soirees[$count]['Date'][9]." ".$soirees[$count]['Heure_début'][0].$soirees[$count]['Heure_début'][1].":00:00";
+                }
+                for($count = 0;$count != count($soirees);$count++){
+
+                    if(strtotime($dates[$count]) +172800 < (strtotime("now") + 7200)){
+
+                        $id_date = $count + 1;
+                        $req = $bdd->query('UPDATE soirees SET `Etat` = "over" WHERE `ID` = "'.$id_date.'"');
+                    }
+                    if(strtotime($dates[$count]) < (strtotime("now") + 7200) && strtotime($dates[$count]) + 172800 > (strtotime("now") + 7200)){
+
+                        $id_date = $count + 1;
+                        $req = $bdd->query('UPDATE soirees SET `Etat` = "notation" WHERE `ID` = "'.$id_date.'"');
+                    }
+                }
 
                 if(isset($_POST['note'])){
 
@@ -173,8 +194,11 @@
 
                             ?><p style="color: green;">Merci d'avoir pris le temps de noter !</p><?php
                         }
-                    ?>
-                    <?php }?>
+                    }
+                    else{
+                        ?><p style="color: white;">Si je met pas ça, c'est tout décalé</p><?php
+                    }
+                ?>
             </div>
                 
             <?php }?>

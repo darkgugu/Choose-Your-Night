@@ -1,13 +1,17 @@
 </div>
-      
-<a href="account_infos.php"><img class="account" src="../Images/Ressources/account.png"></img></a>
+<?php
+
+    $accurl = "../Images/Ressources/account_".$_SESSION['perm'].".png";
+?>
+
+<a href="account_infos.php"><img class="account" src="<?php echo $accurl;?>"></img></a>
 
 <button class="openbtn" onclick="openNav()">&#9776;</button>
 
 <div id="mySidebar" class="sidebar">
             <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
             <?php if($_SESSION['perm'] == 'admin'){?><a style="color: red;" href="backend.php">BACKEND</a><?php }?>
-            <a href="acceuil.php">Acceuil</a>
+            <a href="acceuil.php">Accueil</a>
             <!--<a href="ecole_tile.php">Nos écoles partenaires</a>
             <a href="asso_tile.php">Nos associations partenaires</a>-->
             <a href="partenaires.php">Espace Partenaires</a>
